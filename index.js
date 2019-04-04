@@ -1,11 +1,19 @@
 const express = require('express')
 const app = express()
+const path = require('path')
 
+app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
+app.set('view engine', 'pug')
+
+app.get('/pug/', (req, res) => {
+    res.render('viewsPug/index.pug');
+})
 
 app.get('/', (req, res) => {
-    res.render('pages/index', { title: "Yeet-Site" })
+    res.render('pages/index.ejs', { title: "Yeet-Site" })
 })
+
 
 app.get('/about', (req, res) => {
     let authorData = [
@@ -23,7 +31,7 @@ app.get('/about', (req, res) => {
         },
     ]
 
-    res.render('pages/about', {
+    res.render('pages/about.ejs', {
         title: "Yeet-Site | About",
         authorData: authorData,
         authorCount: authorData.length
